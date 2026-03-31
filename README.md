@@ -51,10 +51,7 @@ These anomalies can be identified through baseline comparison and correlation wi
 ```
 Log Validation → Initial Access Detection → Session Establishment → DNS Spike Detection →
 Exfiltration Detection → Volume Analysis → C2 Identification → Firewall Correlation → Packet Validation
-
 ```
-
-
 ---
 
 ## MITRE ATT&CK Mapping
