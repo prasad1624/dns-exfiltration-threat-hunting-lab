@@ -95,27 +95,25 @@ Exfiltration Detection → Volume Analysis → C2 Identification → Firewall Co
 
 ---
 
-### 2. Exfiltration Mechanism
+### 2. Data Access
+
+![MySQL Access](evidence/attack/05_mysql_access.png)  
+*Access to structured database containing patient records (100 records identified)*
+
+---
+
+### 3. Exfiltration Mechanism
 
 ![DNS Tunneling Raw Packets](evidence/wireshark/wireshark_01_dns_tunneling_raw_packets.png)  
-*DNS queries carrying encoded data to external server*
+*High-volume DNS queries with long, encoded subdomains indicating tunneling-based data exfiltration*
 
----
-
-### 3. Proof of Data Exfiltration
-
-![Decoded Exfiltrated Data](evidence/wireshark/wireshark_02_exfiltrated_data_decoded.png)  
-*Decoded DNS queries confirm structured data exfiltration*
-
----
-
-### 4. Detection and Analysis
+### 4. Threat Hunting Detection
 
 ![DNS Spike Timeline](evidence/threat-hunt/08_dns_spike_timeline.png)  
-*Significant spike in DNS traffic following SSH access*
+*Significant spike in DNS traffic following system compromise*
 
 ![DNS Exfiltration Raw Detection](evidence/threat-hunt/06_dns_exfiltration_raw_detection.png)  
-*Detection query output identifying high-volume DNS requests with encoded patterns indicative of data exfiltration*
+*Detection query identifying high-volume DNS requests with encoded patterns*
 
 ---
 
