@@ -1,0 +1,13 @@
+(index=main sourcetype=linux:auth "Accepted password")
+| rex field=_raw "from (?<src_ip>\d+\.\d+\.\d+\.\d+)"
+| eval ssh_time = _time
+| fields src_ip, ssh_time
+| join type=inner src_ip [
+    search index=main sourcetype=zeek:dns host=ubuntuone earliest=-10m latest=+10m
+    | where len(_raw) > 200 OR match(_raw, "dnscat")
+    | stats dns_count = count by src_ip
+    | where dns_count > 20
+]
+| eval severity = "CRITICAL"
+| eval description = "SSH success from " . src_ip . " followed by DNS tunneling (" . dns_count . " queries)"
+| table ssh_time, src_ip, dns_count, severity, description

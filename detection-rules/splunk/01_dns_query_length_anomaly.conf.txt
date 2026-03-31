@@ -1,0 +1,9 @@
+index=main sourcetype=zeek:dns host=ubuntuone
+| rex field=_raw "^(?:\S+\s+){8}(?<dns_query>\S+)"
+| eval query_length = len(dns_query)
+| where query_length > 60
+| stats count by src_ip, dns_query
+| where count > 20
+| eval severity = "HIGH"
+| eval description = "Possible DNS tunneling detected - " . count . " long queries (" . query_length . " chars) from " . src_ip
+| table _time, src_ip, dns_query, count, severity, description
