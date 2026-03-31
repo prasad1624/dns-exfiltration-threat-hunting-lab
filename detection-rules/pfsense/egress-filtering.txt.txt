@@ -1,0 +1,34 @@
+# pfSense Egress Filtering Rules
+# Prevent DNS tunneling by blocking unauthorized DNS traffic
+
+# Rule 1: Block DNS to external servers (prevents C2 communication)
+Action: Block
+Protocol: UDP/TCP
+Source: LAN (10.0.2.0/24)
+Destination: !10.0.2.1
+Port: 53
+Description: Block DNS to any server except internal resolver
+
+# Rule 2: Allow DNS only to internal resolver
+Action: Pass
+Protocol: UDP/TCP
+Source: LAN (10.0.2.0/24)
+Destination: 10.0.2.1
+Port: 53
+Description: Allow DNS to pfSense DNS resolver
+
+# Rule 3: Log and block all other DNS attempts (default deny)
+Action: Block
+Protocol: UDP/TCP
+Source: LAN (10.0.2.0/24)
+Destination: any
+Port: 53
+Description: Default deny for DNS - log all attempts for monitoring
+
+# Rule 4: Alert on DNS traffic to non-standard ports
+Action: Block
+Protocol: UDP/TCP
+Source: LAN (10.0.2.0/24)
+Destination: any
+Port: !53
+Description: Block DNS on non-standard ports (tunneling evasion)
