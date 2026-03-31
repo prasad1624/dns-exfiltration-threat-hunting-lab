@@ -1,0 +1,12 @@
+Category,IOC Type,Value,Description,Confidence
+Network,Attacker IP,10.0.1.10,Source of SSH brute force and DNS C2,High
+Network,Victim IP,10.0.2.10,Compromised Ubuntu database server,High
+Network,C2 Domain,cdn-health-sync.com,DNS tunneling Command & Control domain,High
+Network,DNS Regex Pattern,^dnscat\.[a-f0-9]+,Pattern observed in all exfiltration queries,High
+Network,Network Anomaly,Length > 200 chars,Exceptionally long DNS queries indicating tunneling,Medium
+Host,Malicious Tool,dnscat2,DNS tunneling tool used for exfiltration,High
+Host,File Path,/var/www/html/hospital/config.php,Location where plain-text credentials were exposed,High
+Host,File Path,/tmp/patients.sql,Temporary location of the dumped patient database,High
+Credentials,Compromised Account,sp,Local Linux account targeted by attacker,High
+Credentials,SSH Password,root,Weak password successfully brute-forced,High
+Credentials,Database Password,hospital123,Plain-text MySQL password discovered in config file,High
