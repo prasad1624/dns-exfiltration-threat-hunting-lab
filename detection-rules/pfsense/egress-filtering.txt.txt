@@ -1,6 +1,4 @@
 # pfSense Egress Filtering Rules
-# IMPORTANT: Rules are processed in order from top to bottom.
-# First match wins - order matters!
 
 # Rule 1: Allow DNS ONLY to internal resolver 
 Action: Pass
